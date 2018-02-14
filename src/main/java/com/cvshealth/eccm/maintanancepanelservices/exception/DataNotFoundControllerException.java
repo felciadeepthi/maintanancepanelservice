@@ -1,6 +1,6 @@
 package com.cvshealth.eccm.maintanancepanelservices.exception;
 
-public class CommunicationControllerException extends Exception {
+public class DataNotFoundControllerException extends Exception {
 
   /**
    *
@@ -11,13 +11,13 @@ public class CommunicationControllerException extends Exception {
 
   private int errorCode;
 
-  public CommunicationControllerException() {
+  public DataNotFoundControllerException() {
 
     super();
 
   }
 
-  public CommunicationControllerException(String errorMessage) {
+  public DataNotFoundControllerException(String errorMessage) {
 
     super(errorMessage);
 
@@ -25,7 +25,7 @@ public class CommunicationControllerException extends Exception {
 
   }
 
-  public CommunicationControllerException(String errorMessage, int errorCode) {
+  public DataNotFoundControllerException(String errorMessage, int errorCode) {
 
     this.errorMessage = errorMessage;
     this.errorCode = errorCode;

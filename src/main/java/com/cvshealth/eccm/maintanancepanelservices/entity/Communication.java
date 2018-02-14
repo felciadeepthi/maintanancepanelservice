@@ -1,6 +1,7 @@
 package com.cvshealth.eccm.maintanancepanelservices.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -26,6 +28,16 @@ public class Communication implements Serializable {
   private String description;
 
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "communication")
+  @JsonIdentityReference(alwaysAsId = true)
+  private Set<ProgramConfiguration> programConfiguration;
+
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "communication")
+  @JsonIdentityReference(alwaysAsId = true)
+  private Set<ClientConfiguration> clientConfiguration;
+
+  public Set<ClientConfiguration> getClientConfiguration() {
+    return clientConfiguration;
+  }
 
   public String getDescription() {
     return description;
@@ -39,6 +51,14 @@ public class Communication implements Serializable {
     return name;
   }
 
+  public Set<ProgramConfiguration> getProgramConfiguration() {
+    return programConfiguration;
+  }
+
+  public void setClientConfiguration(Set<ClientConfiguration> clientConfiguration) {
+    this.clientConfiguration = clientConfiguration;
+  }
+
   public void setDescription(String description) {
     this.description = description;
   }
@@ -49,6 +69,10 @@ public class Communication implements Serializable {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setProgramConfiguration(Set<ProgramConfiguration> programConfiguration) {
+    this.programConfiguration = programConfiguration;
   }
 
 }

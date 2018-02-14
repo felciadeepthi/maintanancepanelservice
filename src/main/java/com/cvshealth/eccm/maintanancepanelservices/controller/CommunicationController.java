@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cvshealth.eccm.maintanancepanelservices.entity.Communication;
-import com.cvshealth.eccm.maintanancepanelservices.exception.CommunicationControllerException;
+import com.cvshealth.eccm.maintanancepanelservices.exception.DataNotFoundControllerException;
 import com.cvshealth.eccm.maintanancepanelservices.exception.ErrorResponse;
 import com.cvshealth.eccm.maintanancepanelservices.service.ICommunicationService;
 
@@ -26,7 +26,7 @@ public class CommunicationController {
   @Autowired
   private ICommunicationService communicationService;
 
-  @ExceptionHandler(CommunicationControllerException.class)
+  @ExceptionHandler(DataNotFoundControllerException.class)
   public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
     ErrorResponse error = new ErrorResponse();
     error.setErrorCode(HttpStatus.NOT_FOUND.value());
@@ -42,14 +42,15 @@ public class CommunicationController {
 
   @RequestMapping(value = "/communication/{id}", method = RequestMethod.GET)
   public ResponseEntity<Communication> getCommunicationById(@PathVariable("id") Integer id)
-      throws CommunicationControllerException {
+      throws DataNotFoundControllerException {
     Communication communication;
     communication = communicationService.getCommunicationById(id);
     if (communication != null) {
       return new ResponseEntity<Communication>(communication, HttpStatus.OK);
     } else {
-      throw new CommunicationControllerException("Communication Not Found");
+      throw new DataNotFoundControllerException("Communication Not Found");
     }
 
   }
+
 }
